@@ -131,7 +131,5 @@ ja assure Hackathon
 │  ├─ README_USER.md             # User-focused docs
 │  ├─ tsr/                       # TripoSR modules
 │  └─ app/                       # Additional modular structure and utils
-├─ outputs/                      # Generated models (OBJ/GLB)
-└─ saveweb2zip-com-nexio-hero-section-ui-lovable-app/
-   └─ js/nexio-hero-section-ui-328/  # Vite/React demo
+└─outputs/                      # Generated models (OBJ/GLB)
 ```
