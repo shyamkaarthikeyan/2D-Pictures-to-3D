@@ -124,7 +124,7 @@ npm run dev
 
 ## Project structure
 ```
-A - Copy/
+ja assure Hackathon
 ├─ TripoSR/
 │  ├─ web_app.py                 # Flask app with integrated UI
 │  ├─ requirements.txt           # Python dependencies (core)
