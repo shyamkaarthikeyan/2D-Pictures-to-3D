@@ -17,7 +17,6 @@ Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally an
 - [Features](#features)
 - [Architecture](#architecture)
 - [Quick start (Flask app)](#quick-start-flask-app)
-- [Optional React demo](#optional-react-demo)
 - [API endpoints](#api-endpoints)
 - [Troubleshooting](#troubleshooting)
 - [Project structure](#project-structure)
