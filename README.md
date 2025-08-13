@@ -26,7 +26,7 @@ Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally an
 
 
 ## Features
-- **Learning-based 3D reconstruction**: Uses [TripoSR by Stability](https://huggingface.co/stabilityai/TripoSR)
+- **Learning-based 3D reconstruction**
 - **Background removal**: Built-in with `rembg`
 - **Mesh resolution slider**: Balance speed and quality
 - **Multiple export formats**: `OBJ` and `GLB`
