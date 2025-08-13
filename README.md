@@ -117,7 +117,6 @@ npm run dev
 
 ## Troubleshooting
 - "Torch not found" or CUDA issues: install the correct PyTorch wheel from the [official guide](https://pytorch.org/get-started/locally/).
-- First run is slow: the model is downloaded from [Hugging Face](https://huggingface.co/stabilityai/TripoSR).
 - Missing packages: ensure `flask`, `flask-cors`, `numpy`, and `torch` are installed in your environment.
 - Permission issues on `outputs/`: the app will create it if missing; otherwise create it manually.
 
@@ -136,14 +135,3 @@ ja assure Hackathon
 └─ saveweb2zip-com-nexio-hero-section-ui-lovable-app/
    └─ js/nexio-hero-section-ui-328/  # Vite/React demo
 ```
-
-
-## License
-This repository includes an MIT license for the TripoSR portion. See [`TripoSR/LICENSE`](TripoSR/LICENSE).
-
-
-## Acknowledgements
-- [Stability — TripoSR](https://huggingface.co/stabilityai/TripoSR)
-- [rembg](https://github.com/danielgatis/rembg)
-- [Flask](https://flask.palletsprojects.com)
-- [Tailwind CSS](https://tailwindcss.com) and [Vite](https://vitejs.dev)
