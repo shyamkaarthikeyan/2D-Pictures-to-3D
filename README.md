@@ -1,4 +1,4 @@
-# 2D Image → 3D Web App (TripoSR)
+# 2D Image → 3D Web App
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-2.x-000000?logo=flask&logoColor=white)
