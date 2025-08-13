@@ -87,15 +87,6 @@ python TripoSR/web_app.py --host 0.0.0.0 --port 5000
 - Network (QR flow): `http://<your-lan-ip>:5000`
 
 
-## Optional React demo
-There is also a separate Vite/React + TypeScript UI demo (not wired to the Flask API).
-```bash
-cd saveweb2zip-com-nexio-hero-section-ui-lovable-app/js/nexio-hero-section-ui-328
-npm i
-npm run dev
-```
-
-
 ## API endpoints
 - **POST** `/api/upload`
   - Body: `{ image: <base64 data URL>, removeBackground?: boolean, foregroundRatio?: number }`
