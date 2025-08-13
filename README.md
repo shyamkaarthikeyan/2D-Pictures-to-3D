@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 
-Convert a single image into a downloadable 3D model (OBJ/GLB), locally and privately. The app integrates Stability’s TripoSR for fast, high-quality mesh reconstruction and provides a modern in-browser UI with optional QR-code mobile uploads.
+Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally and privately. The app integrates Stability’s TripoSR for fast, high-quality mesh reconstruction and provides a modern in-browser UI with optional QR-code mobile uploads.
 
 - **Input**: 1–4 images (the first is used for 3D generation)
 - **Output**: OBJ and GLB files in `outputs/`
@@ -17,7 +17,6 @@ Convert a single image into a downloadable 3D model (OBJ/GLB), locally and priva
 - [Features](#features)
 - [Architecture](#architecture)
 - [Quick start (Flask app)](#quick-start-flask-app)
-- [Optional React demo](#optional-react-demo)
 - [API endpoints](#api-endpoints)
 - [Troubleshooting](#troubleshooting)
 - [Project structure](#project-structure)
@@ -26,7 +25,7 @@ Convert a single image into a downloadable 3D model (OBJ/GLB), locally and priva
 
 
 ## Features
-- **Learning-based 3D reconstruction**: Uses [TripoSR by Stability](https://huggingface.co/stabilityai/TripoSR)
+- **Learning-based 3D reconstruction**
 - **Background removal**: Built-in with `rembg`
 - **Mesh resolution slider**: Balance speed and quality
 - **Multiple export formats**: `OBJ` and `GLB`
@@ -87,15 +86,6 @@ python TripoSR/web_app.py --host 0.0.0.0 --port 5000
 - Network (QR flow): `http://<your-lan-ip>:5000`
 
 
-## Optional React demo
-There is also a separate Vite/React + TypeScript UI demo (not wired to the Flask API).
-```bash
-cd saveweb2zip-com-nexio-hero-section-ui-lovable-app/js/nexio-hero-section-ui-328
-npm i
-npm run dev
-```
-
-
 ## API endpoints
 - **POST** `/api/upload`
   - Body: `{ image: <base64 data URL>, removeBackground?: boolean, foregroundRatio?: number }`
@@ -131,7 +121,5 @@ ja assure Hackathon
 │  ├─ README_USER.md             # User-focused docs
 │  ├─ tsr/                       # TripoSR modules
 │  └─ app/                       # Additional modular structure and utils
-├─ outputs/                      # Generated models (OBJ/GLB)
-└─ saveweb2zip-com-nexio-hero-section-ui-lovable-app/
-   └─ js/nexio-hero-section-ui-328/  # Vite/React demo
+└─outputs/                      # Generated models (OBJ/GLB)
 ```
