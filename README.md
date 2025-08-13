@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 
-Convert a single image into a downloadable 3D model (OBJ/GLB), locally and privately. The app integrates Stability’s TripoSR for fast, high-quality mesh reconstruction and provides a modern in-browser UI with optional QR-code mobile uploads.
+Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally and privately. The app integrates Stability’s TripoSR for fast, high-quality mesh reconstruction and provides a modern in-browser UI with optional QR-code mobile uploads.
 
 - **Input**: 1–4 images (the first is used for 3D generation)
 - **Output**: OBJ and GLB files in `outputs/`
