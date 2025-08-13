@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Image to 3D</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@11.0.0/dist/framer-motion.min.js"></script>
+    <script>
+        // Load QRCode library with proper error handling
+        window.QRCodeLoaded = false;
+        const qrScript = document.createElement('script');
+        qrScript.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
+        qrScript.onload = function() {
+            window.QRCodeLoaded = true;
+            console.log('QRCode library loaded successfully');
+        };
+        qrScript.onerror = function() {
+            console.error('Failed to load QRCode library from CDN, trying alternative...');
+            // Try alternative CDN
+            const altScript = document.createElement('script');
+            altScript.src = 'https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js';
+            altScript.onload = function() {
+                window.QRCodeLoaded = true;
+                console.log('QRCode library loaded from alternative CDN');
+            };
+            altScript.onerror = function() {
+                console.error('Failed to load QRCode library from all sources');
+            };
+            document.head.appendChild(altScript);
+        };
+        document.head.appendChild(qrScript);
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="nexio-bg text-white">
+
+    <!-- Navigation -->
+    <nav class="relative z-50 flex justify-center p-4">
+        <div class="enhanced-glass px-6 py-4 rounded-2xl flex justify-between items-center w-full max-w-6xl glass-hover">
+            <div class="flex items-center gap-4">
+                <h1 class="text-white text-xl font-bold gradient-text">2D to 3D Model</h1>
+                <!-- Removed divider and empty navbar text container -->
+            </div>
+            <button class="nexio-button px-6 py-2 text-white rounded-full font-medium">
+                Generate 3D
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-16 text-center">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <h1 class="text-5xl md:text-7xl font-bold leading-tight text-white">
+                Transform Images to
+                <span class="gradient-text">
+                    3D Models
+                </span>
+            </h1>
+            <!-- Removed: Generate high-quality 3D models from a single image using state-of-the-art AI. Fast, accurate, and easy to use. -->
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <!-- Left Panel - Input Controls -->
+                <div class="space-y-6">
+
+                    <div class="enhanced-glass glass-hover p-6 rounded-2xl">
+                        <h2 class="text-2xl font-semibold mb-4 text-white">Upload Images</h2>
+                        <p class="text-white/60 text-sm mb-4">Upload 4 images (only the first image will be processed for 3D generation)</p>
+                        
+                        <!-- QR Code Upload Option -->
+                        <div class="mb-4">
+                            <div class="enhanced-glass p-4 rounded-xl">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-lg font-medium text-white">Quick Upload via Phone</h3>
+                                    <button id="generate-qr-btn" class="nexio-button px-4 py-2 text-sm">
+                                        Scan QR Code
+                                    </button>
+                                </div>
+                                
+                                <div id="qr-code-container" class="hidden text-center">
+                                    <div class="bg-white p-4 rounded-lg inline-block mb-3">
+                                        <canvas id="qr-code-canvas" width="200" height="200"></canvas>
+                                    </div>
+                                    <p class="text-white/80 text-sm mb-2">Scan with your phone to upload images</p>
+                                    <div id="qr-status" class="text-center">
+                                        <div class="inline-flex items-center gap-2 text-blue-400">
+                                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                            <span class="text-sm">Waiting for upload...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Image Upload Grid -->
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <!-- Image 1 (Primary) -->
+                            <div class="image-upload-slot" data-slot="1">
+                                <div class="upload-area border-2 border-dashed border-blue-400/50 rounded-xl p-4 text-center cursor-pointer hover:border-blue-400/70 transition-colors bg-blue-500/10">
+                                    <div class="upload-content">
+                                        <svg class="mx-auto h-8 w-8 text-blue-400 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <p class="text-blue-400 text-sm font-medium">Image 1 (Primary)</p>
+                                        <p class="text-white/60 text-xs">Click to upload</p>
+                                    </div>
+                                    <img class="preview-image hidden w-full h-20 object-cover rounded">
+                                </div>
+                                <input type="file" class="image-input hidden" accept="image/*" data-slot="1">
+                            </div>
+                            
+                            <!-- Image 2 (Dummy) -->
+                            <div class="image-upload-slot" data-slot="2">
+                                <div class="upload-area border-2 border-dashed border-white/30 rounded-xl p-4 text-center cursor-pointer hover:border-white/50 transition-colors">
+                                    <div class="upload-content">
+                                        <svg class="mx-auto h-8 w-8 text-white/50 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <p class="text-white/70 text-sm">Image 2 (Optional)</p>
+                                        <p class="text-white/60 text-xs">Click to upload</p>
+                                    </div>
+                                    <img class="preview-image hidden w-full h-20 object-cover rounded">
+                                </div>
+                                <input type="file" class="image-input hidden" accept="image/*" data-slot="2">
+                            </div>
+                            
+                            <!-- Image 3 (Dummy) -->
+                            <div class="image-upload-slot" data-slot="3">
+                                <div class="upload-area border-2 border-dashed border-white/30 rounded-xl p-4 text-center cursor-pointer hover:border-white/50 transition-colors">
+                                    <div class="upload-content">
+                                        <svg class="mx-auto h-8 w-8 text-white/50 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <p class="text-white/70 text-sm">Image 3 (Optional)</p>
+                                        <p class="text-white/60 text-xs">Click to upload</p>
+                                    </div>
+                                    <img class="preview-image hidden w-full h-20 object-cover rounded">
+                                </div>
+                                <input type="file" class="image-input hidden" accept="image/*" data-slot="3">
+                            </div>
+                            
+                            <!-- Image 4 (Dummy) -->
+                            <div class="image-upload-slot" data-slot="4">
+                                <div class="upload-area border-2 border-dashed border-white/30 rounded-xl p-4 text-center cursor-pointer hover:border-white/50 transition-colors">
+                                    <div class="upload-content">
+                                        <svg class="mx-auto h-8 w-8 text-white/50 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <p class="text-white/70 text-sm">Image 4 (Optional)</p>
+                                        <p class="text-white/60 text-xs">Click to upload</p>
+                                    </div>
+                                    <img class="preview-image hidden w-full h-20 object-cover rounded">
+                                </div>
+                                <input type="file" class="image-input hidden" accept="image/*" data-slot="4">
+                            </div>
+                        </div>
+                        
+                        <!-- Processed Image Preview -->
+                        <div id="processed-preview" class="hidden mt-4">
+                            <h3 class="text-lg font-medium mb-2 text-white">Processed Image (Primary)</h3>
+                            <img id="processed-image" class="w-full rounded-lg border border-white/20">
+                        </div>
+                    </div>
+
+                    <!-- Settings Panel -->
+                    <div class="enhanced-glass glass-hover p-6 rounded-2xl">
+                        <h2 class="text-2xl font-semibold mb-4 text-white">Settings</h2>
+                        
+                        <!-- Remove Background -->
+                        <div class="mb-4">
+                            <label class="flex items-center space-x-3">
+                                <input type="checkbox" id="remove-bg" checked class="w-4 h-4 text-purple-600 bg-transparent border-2 border-white/30 rounded focus:ring-purple-500">
+                                <span class="text-white">Remove Background</span>
+                            </label>
+                        </div>
+                        
+                        <!-- Foreground Ratio -->
+                        <div class="mb-4">
+                            <label class="block text-white mb-2">Foreground Ratio: <span id="ratio-value">0.85</span></label>
+                            <input type="range" id="foreground-ratio" min="0.5" max="1.0" step="0.05" value="0.85" class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        
+                        <!-- MC Resolution -->
+                        <div class="mb-6">
+                            <label class="block text-white mb-2">Mesh Resolution: <span id="resolution-value">256</span></label>
+                            <input type="range" id="mc-resolution" min="32" max="320" step="32" value="256" class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        
+                        <!-- Generate Button -->
+                        <button id="generate-btn" disabled class="nexio-button w-full py-3 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
+                            Generate 3D Model
+                        </button>
+                        
+                        <!-- Progress Bar -->
+                        <div id="progress-container" class="hidden mt-4">
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <p id="progress-text" class="text-center text-white/80 mt-2">Processing...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - 3D Model Display -->
+                <div class="space-y-6">
+                    <div class="enhanced-glass glass-hover p-6 rounded-2xl">
+                        <h2 class="text-2xl font-semibold mb-4 text-white">3D Model Preview</h2>
+                        
+                        <!-- Model Viewer -->
+                        <div id="model-container" class="aspect-square bg-black/20 rounded-xl flex items-center justify-center border border-white/20">
+                            <div id="model-placeholder" class="text-center text-white/60">
+                                <svg class="mx-auto h-16 w-16 mb-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                                </svg>
+                                <p>Upload an image to generate 3D model</p>
+                            </div>
+                            
+                            <!-- Loading State -->
+                            <div id="loading-state" class="hidden text-center">
+                                <div class="loading-spinner mx-auto mb-4"></div>
+                                <p class="text-white/80">Generating 3D model...</p>
+                            </div>
+                            
+                            <!-- Model Display -->
+                            <div id="model-display" class="hidden w-full h-full">
+                                <canvas id="model-canvas" class="w-full h-full rounded-xl"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Download Buttons -->
+                        <div id="download-section" class="hidden mt-6 space-y-3">
+                            <h3 class="text-lg font-medium">Download Model</h3>
+                            <div class="flex gap-3">
+                                <button id="download-obj" class="flex-1 py-2 px-4 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors">
+                                    Download OBJ
+                                </button>
+                                <button id="download-glb" class="flex-1 py-2 px-4 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors">
+                                    Download GLB
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Panel cleaned up -->
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-white/60">Speed:</span>
+                                <span class="text-green-400">&lt; 0.5s on GPU</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-white/60">Quality:</span>
+                                <span class="text-blue-400">High Resolution</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-white/60">Formats:</span>
+                                <span class="text-purple-400">OBJ, GLB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
