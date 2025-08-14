@@ -805,7 +805,7 @@ HTML_TEMPLATE = """
                 </span>
             </h1>
             <p class="text-xl md:text-2xl text-white max-w-2xl mx-auto">
-                Generate high-quality 3D models from a single image using state-of-the-art AI. Fast, accurate, and easy to use.
+                Generate high-quality 3D models from a single image using state-of-the-art. Fast, accurate, and easy to use.
             </p>
         </div>
     </div>
