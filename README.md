@@ -114,7 +114,7 @@ python TripoSR/web_app.py --host 0.0.0.0 --port 5000
 ## Project structure
 ```
 ja assure Hackathon
-├─ TripoSR/
+├─ ja_assure/
 │  ├─ web_app.py                 # Flask app with integrated UI
 │  ├─ requirements.txt           # Python dependencies (core)
 │  ├─ README.md                  # Project docs (TripoSR)
