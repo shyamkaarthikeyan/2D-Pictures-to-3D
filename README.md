@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 
-Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally and privately. The app integrates Stability’s TripoSR for fast, high-quality mesh reconstruction and provides a modern in-browser UI with optional QR-code mobile uploads.
+Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally and privately. The app integrates Stability’s ja_assure for fast, high-quality mesh reconstruction and provides a modern in-browser UI with optional QR-code mobile uploads.
 
 - **Input**: 1–4 images (the first is used for 3D generation)
 - **Output**: OBJ and GLB files in `outputs/`
@@ -37,7 +37,7 @@ Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally an
 ## Architecture
 ```mermaid
 flowchart LR
-  A[Browser UI] -- Upload/Generate --> B[Flask API\nTripoSR Web App]
+  A[Browser UI] -- Upload/Generate --> B[Flask API\nja_assure Web App]
   B -- Preprocess (rembg) --> C[Image]
   B -- Infer (TSR model) --> D[Scene Codes]
   B -- Extract Mesh --> E[Mesh]
@@ -45,8 +45,8 @@ flowchart LR
   A -- Download --> F
 ```
 
-- Flask app entry: `TripoSR/web_app.py`
-- Model loading: `TSR.from_pretrained("stabilityai/TripoSR")`
+- Flask app entry: `ja_assure/web_app.py`
+- Model loading: `TSR.from_pretrained("stabilityai/ja_assure")`
 - Outputs written to `outputs/`
 
 
@@ -63,7 +63,7 @@ python -m venv .venv && source .venv/bin/activate  # Windows: .venv\\Scripts\\ac
 pip install --upgrade pip
 
 # Core requirements
-pip install -r TripoSR/requirements.txt
+pip install -r ja_assure/requirements.txt
 
 # Runtime dependencies not pinned in requirements.txt
 pip install flask flask-cors numpy
@@ -76,9 +76,9 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu
 
 2) Run the server
 ```bash
-python TripoSR/web_app.py            # Local only
+python ja_assure/web_app.py            # Local only
 # or to use QR uploads from phone on same network
-python TripoSR/web_app.py --host 0.0.0.0 --port 5000
+python ja_assure/web_app.py --host 0.0.0.0 --port 5000
 ```
 
 3) Open the app
@@ -117,9 +117,9 @@ ja assure Hackathon
 ├─ ja_assure/
 │  ├─ web_app.py                 # Flask app with integrated UI
 │  ├─ requirements.txt           # Python dependencies (core)
-│  ├─ README.md                  # Project docs (TripoSR)
+│  ├─ README.md                  # Project docs (ja_assure)
 │  ├─ README_USER.md             # User-focused docs
-│  ├─ tsr/                       # TripoSR modules
+│  ├─ tsr/                       # ja_assure modules
 │  └─ app/                       # Additional modular structure and utils
 └─outputs/                      # Generated models (OBJ/GLB)
 ```
