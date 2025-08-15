@@ -20,8 +20,6 @@ Convert pictures of an object into a downloadable 3D model (OBJ/GLB), locally an
 - [API endpoints](#api-endpoints)
 - [Troubleshooting](#troubleshooting)
 - [Project structure](#project-structure)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 
 ## Features
